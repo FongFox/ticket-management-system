@@ -32,7 +32,7 @@ extra["springAiVersion"] = "1.0.0"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-//	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+//	implement("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")

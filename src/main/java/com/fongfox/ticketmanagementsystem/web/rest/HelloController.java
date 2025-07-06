@@ -1,4 +1,4 @@
-package com.fongfox.ticketmanagementsystem.controller;
+package com.fongfox.ticketmanagementsystem.web.rest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * HelloController
  * <p>
- * Hello Controller to test controller
+ * Hello Controller to test web
  * <p>
  * Version 1.0
  * Date: 7/3/2025
