@@ -776,3 +776,309 @@ Ref: role_user.role_id > roles.id [delete: cascade]
 Ref: role_user.user_id > users.id [delete: cascade]
 Ref: role_permissions.role_id > roles.id [delete: cascade]
 Ref: role_permissions.permission_id > permissions.id [delete: cascade]
+
+---
+
+## DB Diagram (ver 0.5) Note
+
+// Bảng người dùng
+
+Table users {
+
+  id bigint [pk, increment]
+
+  firstname varchar(100)
+
+  lastname varchar(100)
+
+  email varchar(255) [unique, not null]
+
+  password varchar(255) [not null]
+
+  avatar varchar(255)
+
+  phone varchar(20)
+
+  email_verified_at timestamp
+
+  last_login_at timestamp
+
+  status tinyint [default: 1, note: "0:Banned,1:Active,2:Deleted"]
+
+  created_at timestamp [default: `now()`]
+
+  updated_at timestamp [default: `now()`]
+
+}
+
+// Bảng vai trò
+
+Table roles {
+
+  id bigint [pk, increment]
+
+  name varchar(100) [unique, not null]
+
+  display_name varchar(100) [not null]
+
+  description text
+
+  status tinyint [default: 1, note: "0:Disabled,1:Active,2:Deleted"]
+
+  created_at timestamp [default: `now()`]
+
+  updated_at timestamp [default: `now()`]
+
+}
+
+// Bảng quyền
+
+Table permissions {
+
+  id bigint [pk, increment]
+
+  name varchar(100) [unique, not null]
+
+  display_name varchar(100) [not null]
+
+  description text
+
+  created_at timestamp [default: `now()`]
+
+  updated_at timestamp [default: `now()`]
+
+}
+
+// Bảng gán vai trò cho người dùng
+
+Table role_user {
+
+  id bigint [pk, increment]
+
+  role_id bigint [not null]
+
+  user_id bigint [not null]
+
+  status tinyint [default: 1, note: "0:Disabled,1:Active,2:Deleted"]
+
+  created_at timestamp [default: `now()`]
+
+}
+
+// Bảng gán quyền cho vai trò
+
+Table role_permissions {
+
+  id bigint [pk, increment]
+
+  role_id bigint [not null]
+
+  permission_id bigint [not null]
+
+  created_at timestamp [default: `now()`]
+
+}
+
+// Mối quan hệ giữa các bảng
+
+Ref: role_user.role_id > roles.id [delete: cascade]
+
+Ref: role_user.user_id > users.id [delete: cascade]
+
+Ref: role_permissions.role_id > roles.id [delete: cascade]
+
+Ref: role_permissions.permission_id > permissions.id [delete: cascade]
+
+---
+
+## DB Diagram (ver 0.5) Note
+
+// Bảng người dùng
+
+Table users {
+
+  id bigint [pk, increment]
+
+  firstname varchar(100)
+
+  lastname varchar(100)
+
+  email varchar(255) [unique, not null]
+
+  password varchar(255) [not null]
+
+  avatar varchar(255)
+
+  phone varchar(20)
+
+  role_id bigint [not null]
+
+  email_verified_at timestamp
+
+  last_login_at timestamp
+
+  status tinyint [default: 1, note: "0:Banned,1:Active,2:Deleted"]
+
+  created_at timestamp [default: `now()`]
+
+  updated_at timestamp [default: `now()`]
+
+}
+
+// Bảng vai trò
+
+Table roles {
+
+  id bigint [pk, increment]
+
+  name varchar(100) [unique, not null]
+
+  display_name varchar(100) [not null]
+
+  description text
+
+  status tinyint [default: 1, note: "0:Disabled,1:Active,2:Deleted"]
+
+  created_at timestamp [default: `now()`]
+
+  updated_at timestamp [default: `now()`]
+
+}
+
+// Bảng quyền
+
+Table permissions {
+
+  id bigint [pk, increment]
+
+  name varchar(100) [unique, not null]
+
+  display_name varchar(100) [not null]
+
+  description text
+
+  created_at timestamp [default: `now()`]
+
+  updated_at timestamp [default: `now()`]
+
+}
+
+// Bảng gán quyền cho vai trò
+
+Table role_permissions {
+
+  id bigint [pk, increment]
+
+  role_id bigint [not null]
+
+  permission_id bigint [not null]
+
+  created_at timestamp [default: `now()`]
+
+}
+
+// Mối quan hệ giữa các bảng
+
+Ref: users.role_id > roles.id [delete: restrict]
+
+Ref: role_permissions.role_id > roles.id [delete: cascade]
+
+Ref: role_permissions.permission_id > permissions.id [delete: cascade]
+
+---
+
+## DB Diagram (ver 0.6) Note
+
+// Bảng người dùng
+
+Table users {
+
+  id bigint [pk, increment]
+
+  firstname varchar(100)
+
+  lastname varchar(100)
+
+  email varchar(255) [unique, not null]
+
+  password varchar(255) [not null]
+
+  avatar varchar(255)
+
+  phone varchar(20)
+
+  role_id bigint [not null]
+
+  email_verified_at timestamp
+
+  last_login_at timestamp
+
+  status tinyint [default: 1, note: "0:Banned,1:Active,2:Deleted"]
+
+  created_at timestamp [default: `now()`]
+
+  updated_at timestamp [default: `now()`]
+
+}
+
+// Bảng vai trò
+
+Table roles {
+
+  id bigint [pk, increment]
+
+  name varchar(100) [unique, not null]
+
+  display_name varchar(100) [not null]
+
+  description text
+
+  status tinyint [default: 1, note: "0:Disabled,1:Active,2:Deleted"]
+
+  created_at timestamp [default: `now()`]
+
+  updated_at timestamp [default: `now()`]
+
+}
+
+// Bảng quyền
+
+Table permissions {
+
+  id bigint [pk, increment]
+
+  name varchar(100) [unique, not null]
+
+  display_name varchar(100) [not null]
+
+  description text
+
+  created_at timestamp [default: `now()`]
+
+  updated_at timestamp [default: `now()`]
+
+}
+
+// Bảng gán quyền cho người dùng
+
+Table user_permissions {
+
+  id bigint [pk, increment]
+
+  user_id bigint [not null]
+
+  permission_id bigint [not null]
+
+  status tinyint [default: 1, note: "0:Disabled,1:Active,2:Deleted"]
+
+  created_at timestamp [default: `now()`]
+
+}
+
+// Mối quan hệ giữa các bảng
+
+Ref: users.role_id > roles.id [delete: restrict]
+
+Ref: user_permissions.user_id > users.id [delete: cascade]
+
+Ref: user_permissions.permission_id > permissions.id [delete: cascade]

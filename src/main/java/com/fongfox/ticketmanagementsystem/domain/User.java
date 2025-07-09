@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * User
@@ -61,6 +62,7 @@ public class User {
     @Column(name = "last_login_at")
     private LocalDateTime lastLoginAt;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "status", columnDefinition = "TINYINT DEFAULT 1")
     private UserStatus status = UserStatus.ACTIVE; //0: banned, 1: active; 2: deleted
 
@@ -72,11 +74,24 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<UserPermission> userPermissionList;
+
     public User() {
     }
 
-    public User(Long id, String stringId, String firstName, String lastName, String email, String password, String avatarUrl, String phone, LocalDateTime emailVerifiedAt, LocalDateTime lastLoginAt, UserStatus status) {
-        this.id = id;
+    public User(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String stringId, String firstName, String lastName, String email, String password, String avatarUrl, String phone, LocalDateTime emailVerifiedAt, LocalDateTime lastLoginAt, UserStatus status) {
         this.stringId = stringId;
         this.firstName = firstName;
         this.lastName = lastName;
