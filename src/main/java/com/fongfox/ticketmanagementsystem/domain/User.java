@@ -12,18 +12,17 @@ import java.util.List;
 
 /**
  * User
- * <p>
- * Entity for user (version 0.1)
- * <p>
+ *
+ * Entity for user
+ *
  * Version 1.0
  * Date: 7/8/2025
- * <p>
- * Copyright
- * <p>
+ *
  * Modification Logs:
  * DATE         AUTHOR       DESCRIPTION
  * -------------------------------------
- * 7/8/2025      FongFox      Create user entity (ver 0.1)
+ * 8/7/2025      FongFox      Create user entity (ver 0.1)
+ * 12/7/2025     FongFox      Update user entity (ver 0.1)
  */
 @Entity
 @Table(name = "users")
@@ -49,6 +48,9 @@ public class User {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "refresh_token", nullable = true)
+    private String refreshToken;
 
     @Column(name = "avatar_url")
     private String avatarUrl;
